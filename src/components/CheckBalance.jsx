@@ -13,7 +13,7 @@ function CheckBalance() {
   useEffect(() => {
     const fetchBalance = async () => {
       try {
-        const response = await fetch(`https://bank-admin-backend-production.up.railway.app/user/${accountNumber}`);
+        const response = await fetch(`https://bank-user-backend-production-9391.up.railway.app/user/${accountNumber}`);
 
         if (!response.ok) {
           const errorMsg = await response.text();

@@ -30,7 +30,7 @@ function TransferMoney() {
     };
 
     try {
-      const response = await fetch("https://bank-admin-backend-production.up.railway.app/transfer", {
+      const response = await fetch("https://bank-user-backend-production-9391.up.railway.app/transfer", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify(payload),

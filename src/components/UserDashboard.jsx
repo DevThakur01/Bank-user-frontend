@@ -20,7 +20,7 @@ export default function UserDashboard() {
   useEffect(() => {
     const fetchUserDetails = async () => {
       try {
-        const response = await fetch(`https://bank-admin-backend-production.up.railway.app/user/${accountNumber}`);
+        const response = await fetch(`https://bank-user-backend-production-9391.up.railway.app/user/${accountNumber}`);
 
         if (!response.ok) {
           const errorText = await response.text();
