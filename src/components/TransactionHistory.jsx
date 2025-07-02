@@ -13,7 +13,7 @@ function TransactionHistory() {
   useEffect(() => {
     const fetchTransactions = async () => {
       try {
-        const response = await fetch(`http://localhost:8080/transactions/${accountNumber}`);
+        const response = await fetch(`https://bank-admin-backend-production.up.railway.app/transactions/${accountNumber}`);
         if (!response.ok) {
           const errorText = await response.text();
           throw new Error(errorText || "Failed to load transactions.");

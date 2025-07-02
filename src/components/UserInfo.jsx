@@ -13,7 +13,7 @@ function UserInfo() {
   useEffect(() => {
     const fetchUserDetails = async () => {
       try {
-        const response = await fetch(`http://localhost:8080/user/${accountNumber}`);
+        const response = await fetch(`https://bank-admin-backend-production.up.railway.app/user/${accountNumber}`);
 
         if (!response.ok) {
           const errorText = await response.text();

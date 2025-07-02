@@ -21,7 +21,7 @@ function UserLogin() {
     };
 
     try {
-      const response = await fetch("http://localhost:8080/user/login", {
+      const response = await fetch("https://bank-admin-backend-production.up.railway.app/user/login", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
