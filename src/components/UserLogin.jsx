@@ -5,6 +5,7 @@ import sidePannelImg from "../images/side-pannel2.jpg";
 
 function UserLogin() {
   const [form, setForm] = useState({ accountNumber: "", pin: "" });
+  const [loading, setLoading] = useState(false);
   const navigate = useNavigate();
 
   const handleChange = (e) => {
@@ -14,41 +15,41 @@ function UserLogin() {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+    setLoading(true);
 
     const payload = {
-      accountNumber: parseInt(form.accountNumber), // ensure it's a number
+      accountNumber: parseInt(form.accountNumber),
       pin: form.pin,
     };
 
     try {
       const response = await fetch("https://bank-user-backend-production-9391.up.railway.app/user/login", {
         method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
+        headers: { "Content-Type": "application/json" },
         body: JSON.stringify(payload),
       });
 
-      const resultText = await response.text(); // plain text from backend
+      const resultText = await response.text();
 
       if (response.status === 200) {
-          localStorage.setItem("accountNumber", form.accountNumber);
+        localStorage.setItem("accountNumber", form.accountNumber);
         navigate("/dashboard");
       } else {
-        alert(resultText); // show backend message (e.g., "Incorrect PIN")
+        alert(resultText);
       }
     } catch (error) {
       alert("Server error");
       console.error("Login error:", error);
+    } finally {
+      setLoading(false);
+      setForm({ accountNumber: "", pin: "" });
     }
-
-    setForm({ accountNumber: "", pin: "" });
   };
 
   return (
     <div className="min-h-screen bg-gradient-to-br from-black via-gray-800 to-gray-900 flex items-center justify-center px-4">
       <div className="w-full max-w-5xl bg-white/10 backdrop-blur-md rounded-3xl shadow-2xl border border-gray-700 flex overflow-hidden">
-        
+
         {/* Form Section */}
         <div className="w-full md:w-1/2 p-10 flex flex-col justify-center">
           <h2 className="text-5xl font-bold text-white text-center mb-8 tracking-wide">
@@ -84,11 +85,19 @@ function UserLogin() {
 
             <button
               type="submit"
-              className="w-full py-3 rounded-lg bg-white text-black text-lg font-semibold hover:bg-gray-200 transition"
+              disabled={loading}
+              className={`w-full py-3 rounded-lg bg-white text-black text-lg font-semibold hover:bg-gray-200 transition ${loading ? "opacity-50 cursor-not-allowed" : ""}`}
             >
-              Login
+              {loading ? "Logging in..." : "Login"}
             </button>
           </form>
+
+          {/* Test Credentials Section */}
+          <div className="mt-6 p-4 bg-white/10 rounded-lg text-white text-sm border border-gray-600">
+            <p className="font-semibold mb-2">Test Credentials:</p>
+            <p>Account Number: <span className="font-mono">10000</span></p>
+            <p>PIN: <span className="font-mono">0000</span></p>
+          </div>
         </div>
 
         {/* Image Side Panel */}
